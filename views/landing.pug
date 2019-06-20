@@ -1,15 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(action="/", method="POST")
-       input(name="lead_email", type="email", placeholder="Enter your email address")
-       button(type="submit") Submit
+       h1=title
+       p Welcome to #{title}
+       form(action="/", method="POST")
+              input(name="lead_email", type="email", placeholder="Enter your email address")
+              button(type="submit") Submit
        if leads
               h1 Leads
               for lead in leads
-                     p
+                     p(id=lead.id)
                             span #{lead.email}
                             |      
-                            a(href="/lead/" + lead.id)  Details
+                            a(href="/lead/" + lead.id) Details
+                            |      
+                            button(onclick=`deleteLead('${lead.id}')`) Delete
+       script(src='https://code.jquery.com/jquery-3.4.1.js')
+       script(src='/javascripts/leads.js')
