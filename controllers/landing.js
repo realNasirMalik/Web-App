@@ -23,7 +23,7 @@ exports.show_lead = function(req, res, next) {
               where : {
                      id : req.params.lead_id
               }
-       }).then(lead=> {
+       }).then(lead => {
               res.render('lead', {lead : lead});
        });
 }
@@ -33,7 +33,7 @@ exports.show_edit_lead = function(req, res, next) {
               where : {
                      id : req.params.lead_id
               }
-       }).then(lead=> {
+       }).then(lead => {
               res.render('lead/edit_lead', {lead : lead});
        });
 }
@@ -43,9 +43,9 @@ exports.edit_lead = function(req, res, next) {
               email: req.body.lead_email
        }, {
               where: {
-                     id: req.paramms.lead_id
+                     id: req.params.lead_id
               }
-       }).then(result=> {
-              res.redirct('/lead' + req.params.lead_id);
-       })
+       }).then(result => {
+              res.redirect('/lead/' + req.params.lead_id);
+       });
 }
