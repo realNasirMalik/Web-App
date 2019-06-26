@@ -1,5 +1,4 @@
 let LocalStrategy = require('passport-local').Strategy;
-
 let bcrypt = require('bcrypt');
 let models = require('./models');
 
@@ -23,10 +22,11 @@ module.exports = function(passport) {
 		})
 	});
 	passport.use(new LocalStrategy({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback: true
-	},
+	        // local strategy uses username and password. These settings are overriding the values.
+	        usernameField : 'email',
+	        passwordField : 'password',
+	        passReqToCallback : true // allows us to pass back the entire request to the callback
+	    },
 	function(req, email, password, done) {
 		return models.User.findOne({
 			where: {
@@ -39,7 +39,8 @@ module.exports = function(passport) {
 			} else if (user.password == null || user.password == undefined) {
 				req.flash('message', 'You must reset your password')
 				return done(null, false)
-			} else if(!validPassword(user, password)) {
+			}
+			else if(!validPassword(user, password)) {
 				req.flash('message', 'Incorrect credentials')
 				return done(null, false)
 			}
